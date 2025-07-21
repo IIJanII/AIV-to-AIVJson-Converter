@@ -1,0 +1,6 @@
+sourcehold @ git+https://github.com/sourcehold/sourcehold-maps
+Pillow
+dclimplode
+numpy
+build
+opencv-python
