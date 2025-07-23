@@ -283,7 +283,7 @@ class MainWindow(QMainWindow):
         for file in self.files:
             # load aiv-File and convert to json
             aiv = AIV().from_file(file)
-            aiv_json = to_json(aiv)
+            aiv_json = to_json(aiv=aiv, invert_x=False,  invert_y=True)
             aiv_json = aiv_json.replace('\n', '')
             aiv_json = aiv_json.replace(" ", "")
 
@@ -305,21 +305,6 @@ class MainWindow(QMainWindow):
                                                         str(bedouin_unit_id) + ",")
 
             aiv_json = json.loads(aiv_json)
-
-            # rescale objects positions
-            for frame in aiv_json["frames"]:
-                for i, position in enumerate(frame["tilePositionOfsets"]):
-                    y = int(str(position)[:2])
-                    x = int(str(position)[2:])
-                    y = 99 - y
-                    x = 99 - x
-                    frame["tilePositionOfsets"][i] = int(f"{y:02d}{x:02d}")
-            for unit in aiv_json["miscItems"]:
-                y = int(str(unit["positionOfset"])[:2])
-                x = int(str(unit["positionOfset"])[2:])
-                y = 99 - y
-                x = 99 - x
-                unit["positionOfset"] = int(f"{y:02d}{x:02d}")
 
             # add finished file to list
             lst_aiv_json_files.append(aiv_json)
